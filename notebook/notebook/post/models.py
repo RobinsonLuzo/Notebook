@@ -42,7 +42,7 @@ class Tag(models.Model):
         return super().save(*args, **kwargs)
 
 
-class Post(model.Model):
+class Post(models.Model):
     """
     An instance of a post made by the user/ content posted.
 
@@ -81,7 +81,7 @@ class Follow(models.Model):
     following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
 
 
-class Stream():
+class Stream(models.Model):
     """
     A class to handle streaming of content to followers.
 
