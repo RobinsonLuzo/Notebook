@@ -7,7 +7,6 @@ from django.urls import reverse
 from django.utils.text import slugify
 
 # Create your models here.
-
 def user_directory_path(instance, filename):
     """
     Given file will be uploaded to MEDIA_ROOT, form of: user(id)/filename.
@@ -15,6 +14,7 @@ def user_directory_path(instance, filename):
     Note: user in this instance can be a user id in numeric or character.
     """
     return 'user_{0}/{1}'.format(instance.user.id, filename)
+
 
 class Tag(models.Model):
     """
@@ -44,11 +44,71 @@ class Tag(models.Model):
 
 class Post(model.Model):
     """
-    An instance of a Post.
+    An instance of a post made by the user/ content posted.
 
         Attributes:
-                id: A unique id - uses uuid method for a non sequential unique id
-                picture: The given image
+                id: A unique id - uses uuid method for a non sequential unique id.
+                picture: The given image.
+                caption: Text associated with picture.
+                tags: Social media tags associated with post.
+                user = User id.
+                likes = no. of likes for post.
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    picture = models.ImageField(upload_to=user_directory_path, verbose_name='Picture')
+    picture = models.ImageField(upload_to=user_directory_path, verbose_name='Picture', null=False)
+    caption = models.TextField(max_length=1500, verbose_name='Caption')
+    posted = models.DateTimeField(auto_now_add=True)
+    tags = models.ManyToManyField(Tag, related_name='tags')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    likes = models.IntegerField()
+
+    def get_absolute_url(self):
+        return reverse('postdetails', args=[str(self.id)])
+
+    def __str__(self):
+        return self.posted
+
+
+class Follow(models.Model):
+    """
+    An .
+
+        Attributes:
+                follower: A unique follower going by follower user id.
+                following: Collective of followers.
+    """
+    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower')
+    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
+
+
+class Stream():
+    """
+    A class to handle streaming of content to followers.
+
+        Attributes:
+                following: Collective of follower ids.
+                user: User id.
+                post: Post details to display/stream.
+    """
+    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='stream_following')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    date = models.DateTimeField()
+
+    def add_post(self, sender, instance, *args, **kwargs):
+        """Add post to stream to followers."""
+        post = instance
+        # user in this case is post owner user.
+        user = post.user
+        # Open followers db and filter for only users who are following the given user id.
+        followers = Follow.objects.all().filter(following=user)
+
+        for follower in followers:
+            # For each follower, create a stream.
+            stream = Stream(post=post, user=follower.follower, date=post.posted, following=user)
+            stream.save()
+
+
+# Notify recievers by sending a flag: https://docs.djangoproject.com/en/3.2/topics/signals/
+# Happens every time a user makes a post:
+post_save.connect(Stream.add_post, sender=Post)
