@@ -26,6 +26,7 @@ class Tag(models.Model):
     slug = models.SlugField(null=False, unique=True)
 
     class Meta:
+        verbose_name = 'Tag'
         verbose_name_plural = 'Tags'
 
     def get_absolute_url(self):
@@ -33,7 +34,7 @@ class Tag(models.Model):
         return reverse('tags', arg=[self.slug])
 
     def __str__(self):
-        self.title
+        return self.title
 
     def save(self, *args, **kwargs):
         """Check if hashtag has a slug, if not convert title to one and save."""
@@ -65,9 +66,6 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('postdetails', args=[str(self.id)])
 
-    def __str__(self):
-        return self.posted
-
 
 class Follow(models.Model):
     """
@@ -95,7 +93,7 @@ class Stream(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     date = models.DateTimeField()
 
-    def add_post(self, sender, instance, *args, **kwargs):
+    def add_post(sender, instance, *args, **kwargs):
         """Add post to stream to followers."""
         post = instance
         # user in this case is post owner user.
