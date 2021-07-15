@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template import loader
 
-from .models import Post, Stream
+from .forms import NewPostForm
+from .models import Post, Stream, Tag
 # Create your views here.
 
 # For login_required decorator see: https://docs.djangoproject.com/en/3.2/topics/auth/default/#the-login-required-decorator
@@ -33,3 +34,42 @@ def index(request):
     }
 
     return HttpResponse(template.render(context, request))
+
+
+
+@login_required
+def NewPost(request):
+    """
+    Creating a new post. PResumes tags are supplied correctly deliniated with commas.
+    """
+    user = request.user.id
+    tag_obs = []
+
+    if request.method == "POST":
+        form = NewPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            picture = form.cleaned_data.get('picture')
+            caption = form.cleaned_data.get('caption')
+            tags_form = form.cleaned_data.get('tags')
+
+            tags_list = list(tags_form.split(','))
+
+            # Tag lookup: creates if not existant already.
+            for tag in tags_list:
+                t, created = Tag.objects.get_or_create(title=tag)
+                tag_obs.append(t)
+
+            # post creation with pic and caption:
+            p, created = Post.objects.get_or_create(picture=picture, caption=caption, user_id=user)
+            p.tags.set(tag_obs)
+            p.save()
+            return redirect(index)
+
+    else:
+        form = NewPostForm()
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'newpost.html', context)
