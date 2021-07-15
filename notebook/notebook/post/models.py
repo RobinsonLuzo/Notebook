@@ -23,7 +23,8 @@ class Tag(models.Model):
     Slug use ref: https://stackoverflow.com/questions/427102/what-is-a-slug-in-django
     """
     title = models.CharField(max_length=75, verbose_name='Tag')
-    slug = models.SlugField(null=False, unique=True)
+    # unqie set to flase to allow for duplicates
+    slug = models.SlugField(null=False, unique=False)
 
     class Meta:
         verbose_name = 'Tag'
@@ -61,7 +62,7 @@ class Post(models.Model):
     posted = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(Tag, related_name='tags')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    likes = models.IntegerField()
+    likes = models.IntegerField(default=0)
 
     def get_absolute_url(self):
         return reverse('postdetails', args=[str(self.id)])
