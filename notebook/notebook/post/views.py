@@ -53,12 +53,6 @@ def PostDetails(request, post_id):
     return HttpResponse(template.render(context, request))
 
 
-
-
-
-
-
-
 @login_required
 def NewPost(request):
     """
@@ -95,3 +89,24 @@ def NewPost(request):
     }
 
     return render(request, 'newpost.html', context)
+
+
+@login_required
+def tags(request, tag_slug):
+    """
+    Generates a page of all posts citing a given tag slug/url. 
+
+    Results are ordered by the date they were first posted.
+    """
+    tag = get_object_or_404(Tag, slug=tag_slug)
+    # retrieve only posts with given tag:
+    posts = Post.objects.filter(tags=tag).order_by('-posted') 
+
+    template = loader.get_template('tag.html')
+
+    context = {
+        'posts': posts,
+        'tag': tag,
+    }
+
+    return HttpResponse(template.render(context, request))
