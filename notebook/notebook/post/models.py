@@ -23,16 +23,15 @@ class Tag(models.Model):
     Slug use ref: https://stackoverflow.com/questions/427102/what-is-a-slug-in-django
     """
     title = models.CharField(max_length=75, verbose_name='Tag')
-    # unqie set to flase to allow for duplicates
-    slug = models.SlugField(null=False, unique=False)
+    slug = models.SlugField(null=False, unique=True)
 
     class Meta:
         verbose_name = 'Tag'
         verbose_name_plural = 'Tags'
 
-    #def get_absolute_url(self):
+    def get_absolute_url(self):
         # For when people click on the tag, create a url with given slug
-        #return reverse('tags', args=[self.slug])
+        return reverse('tags', args=[self.slug])
 
     def __str__(self):
         return self.title
