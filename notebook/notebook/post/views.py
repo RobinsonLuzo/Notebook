@@ -68,6 +68,7 @@ def NewPost(request):
             caption = form.cleaned_data.get('caption')
             tags_form = form.cleaned_data.get('tags')
 
+            # strip out whitespace also:
             tags_list = list(tags_form.split(','))
 
             # Tag lookup: creates if not existant already.
