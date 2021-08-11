@@ -68,8 +68,13 @@ def NewPost(request):
             caption = form.cleaned_data.get('caption')
             tags_form = form.cleaned_data.get('tags')
 
-            # strip out whitespace also:
-            tags_list = list(tags_form.split(','))
+            # strip out whitespace and reserved characters like # also:
+            reserved_list = "#"
+            for char in reserved_list:
+                tags_form = tags_form.replace(char, "")
+
+            tags_list = tags_form.replace(" ", "").split(',')
+            #tags_list = list(tags_form.split(','))
 
             # Tag lookup: creates if not existant already.
             for tag in tags_list:
