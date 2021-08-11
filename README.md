@@ -14,6 +14,4 @@ Example user post at "/post".
 
 ## Bugs/TODO:
 
-29.07.21 - issue with needing to strip out whitespace from tags. When multiple tags are specified in a post it splits on commas, but does not do cleanup. This can cause a failure as a hashtag with a space will violate the unique constraint if that tag name (but without the space) already exists. Modify view for NewPost to fix.
-
 29.07.21 - User profile creation will create a profile, but redirect fails specifying path "post/user/login". Not immediate concern, but to be fixed.
