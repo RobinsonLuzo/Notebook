@@ -1,16 +1,26 @@
-# Notebook: an instagram-like app
+# Notebook: an Instagram-like application.
 
-Work in progress. Currently enabled to:
+Work in progress personal project. Currently enabled to:
 
-Admin at "/admin".
+- Allow for new user creation.
 
-User login at "/user/login". Also creation of new users.
+- Login and Logout for users from Navabr
 
-User logout at "/user/logout". To log out at present users must enter this into the bar - not enabled at navbar level yet.
+- Home page of photos from users following.
 
-Example user post at "/post".
+- Post new photos.
 
-**Note:** Actions involving posting photos etc require a user to be logged in to work correctly. Log in first or create a new profile if starting the app for the first time.
+- See all photos associate with a given hashtag.
+
+**Additonal Functionality to come:**
+
+- Enabling more profile-based information such as giving details of user, likes and comments on posts and reviewing photos submitted.
+
+- Direct Messaging and Notifications.
+
+- Video and Stories *a la* Instagram will likely follow after these, but will require mre library imports.
+
+**Note:** Actions involving posting photos etc require a user to be logged in to work correctly. Log in first or create a new profile if starting the app for the first time. This can be done at: "user/login" and selecting the option to Create a new profile.
 
 ## Bugs/TODO:
 
