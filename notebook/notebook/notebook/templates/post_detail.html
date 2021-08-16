@@ -34,6 +34,7 @@
               <time datetime="2016-1-1">{{ post.posted }}</time>
             </div>
 
+            <!--Favorited is a Flag for if a given user has already saved a specific post -->
             {% if favorited is True %}
             <div class="media-right">
               <a href="{% url 'postfavorite' post.id %}">
