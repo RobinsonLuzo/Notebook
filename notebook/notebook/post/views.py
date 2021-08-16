@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.template import loader
 from django.urls import reverse
 
+from authy.models import Profile
+
 from .forms import NewPostForm
 from .models import Post, Stream, Tag, Likes
 # Create your views here.
@@ -148,5 +150,26 @@ def like(request, post_id):
 
     post.likes = current_likes
     post.save()
+
+    return HttpResponseRedirect(reverse('postdetails', args=[post_id]))
+
+
+@login_required
+def favorite(request, post_id):
+    """
+    Handles a save/favorite by a user for a specific post.
+
+    Find and load the user profile and check if the user has saved/favorited the post already.
+    If so then unsave the post from their favorites. Otherwise add it in.
+    """
+    user = request.user
+    post = Post.objects.get(id=post_id)
+    profile = Profile.objects.get(user=user)
+
+    if profile.favorites.filter(id=post_id).exists():
+        profile.favorites.remove(post)
+    
+    else:
+        profile.favorites.add(post)
 
     return HttpResponseRedirect(reverse('postdetails', args=[post_id]))

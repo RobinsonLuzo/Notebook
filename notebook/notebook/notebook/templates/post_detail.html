@@ -35,13 +35,11 @@
             </div>
 
     
-
           <div class="media-right">
-            <a href="">
+            <a href="{% url 'postfavorite' post.id %}">
               <i class="material-icons">save_alt</i></a>
                 <p>Save Post</p>
           </div>
-
           <div class="media-right">
             <a href="{% url 'postlike' post.id %}">
               <i class="material-icons">favorite</i></a>
