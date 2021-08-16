@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template import loader
+from django.urls import reverse
 
 from .forms import NewPostForm
-from .models import Post, Stream, Tag
+from .models import Post, Stream, Tag, Likes
 # Create your views here.
 
 # For login_required decorator see: https://docs.djangoproject.com/en/3.2/topics/auth/default/#the-login-required-decorator
@@ -116,3 +117,36 @@ def tags(request, tag_slug):
     }
 
     return HttpResponse(template.render(context, request))
+
+
+@login_required
+def like(request, post_id):
+    """
+    Handles a like being given by a user to a given post.
+
+    If a user likes a post, the like count is incremented by one and the like added to the db. 
+    If the specific user has already liked a given post then it will be unliked and the like removed from the db.
+
+    NOTE: the number of likes a post has is a local count here - it is not stored in the db, 
+    but rather counted from it and modified locally in this function with a local variable.
+    """
+    user = request.user
+    post = Post.objects.get(id=post_id)
+    current_likes = post.likes
+
+    liked = Likes.objects.filter(user=user, post=post).count()
+
+    # if not likes returned to liked then create one:
+    if not liked:
+        like = Likes.objects.create(user=user, post=post)
+        current_likes = current_likes + 1
+
+    # else remove like as user is unliking that post
+    else:
+        Likes.objects.filter(user=user, post=post).delete()
+        current_likes = current_likes - 1
+
+    post.likes = current_likes
+    post.save()
+
+    return HttpResponseRedirect(reverse('post_details', args=[post_id]))

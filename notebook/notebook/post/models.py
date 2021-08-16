@@ -87,6 +87,7 @@ class Stream(models.Model):
                 following: Collective of follower ids.
                 user: User id.
                 post: Post details to display/stream.
+                date: date post created.
     """
     following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='stream_following')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -105,6 +106,19 @@ class Stream(models.Model):
             # For each follower, create a stream.
             stream = Stream(post=post, user=follower.follower, date=post.posted, following=user)
             stream.save()
+
+
+class Likes(models.Model):
+    """
+    A class to handle likes for a given post by a number of users.
+
+        Attributes:
+                user: User id.
+                post: Post details to display.
+    """
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_like')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_likes')
+
 
 
 # Notify recievers by sending a flag: https://docs.djangoproject.com/en/3.2/topics/signals/
