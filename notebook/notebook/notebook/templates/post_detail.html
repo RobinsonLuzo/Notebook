@@ -43,9 +43,9 @@
           </div>
 
           <div class="media-right">
-            <a href="">
+            <a href="{% url 'postlike' post.id %}">
               <i class="material-icons">favorite</i></a>
-                <p>Likes</p>
+                <p>{{ post.likes }} Likes</p>
           </div>
 
         </div>
