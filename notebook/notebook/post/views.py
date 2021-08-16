@@ -46,11 +46,20 @@ def PostDetails(request, post_id):
     Returns 404 if not found.
     """
     post = get_object_or_404(Post, id=post_id)
+    favorited = False
+
+    # favorite flag check:
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user=request.user)
+        # if post id is already saved by user:
+        if profile.favorites.filter(id=post_id).exists():
+            favorited = True
 
     # render post object:
     template = loader.get_template('post_detail.html')
     context = {
         'post': post,
+        'favorited': favorited, 
     }
 
     return HttpResponse(template.render(context, request))

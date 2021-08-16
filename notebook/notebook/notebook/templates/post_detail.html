@@ -34,19 +34,27 @@
               <time datetime="2016-1-1">{{ post.posted }}</time>
             </div>
 
-    
-          <div class="media-right">
-            <a href="{% url 'postfavorite' post.id %}">
-              <i class="material-icons">save_alt</i></a>
-                <p>Save Post</p>
-          </div>
-          <div class="media-right">
-            <a href="{% url 'postlike' post.id %}">
-              <i class="material-icons">favorite</i></a>
-                <p>{{ post.likes }} Likes</p>
-          </div>
+            {% if favorited is True %}
+            <div class="media-right">
+              <a href="{% url 'postfavorite' post.id %}">
+                <i class="material-icons has-text-danger">save_alt</i></a>
+                  <p>Remove Post</p>
+            </div>
+            {% else %}
+            <div class="media-right">
+              <a href="{% url 'postfavorite' post.id %}">
+                <i class="material-icons has-text-success">save_alt</i></a>
+                  <p>Save Post</p>
+            </div>
+            {% endif %}
 
-        </div>
+            <div class="media-right">
+              <a href="{% url 'postlike' post.id %}">
+                <i class="material-icons has-text-danger">favorite</i></a>
+                  <p>{{ post.likes }} Likes</p>
+            </div>
+
+          </div>
         </div>
       </div>
 
