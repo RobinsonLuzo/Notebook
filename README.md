@@ -1,6 +1,6 @@
 # Notebook: an Instagram-like application.
 
-<img src="https://raw.githubusercontent.com/RobinsonLuzo/Notebook/master/img/Profile_screenshot.JPG" alt="Profile Screenshot" width="300"/>
+<img src="https://raw.githubusercontent.com/RobinsonLuzo/Notebook/master/img/Profile_screenshot.JPG" alt="Profile Screenshot" width="850"/>
 
 Work in progress personal project. Currently enabled to:
 
