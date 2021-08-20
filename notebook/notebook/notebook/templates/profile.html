@@ -52,7 +52,7 @@
         <p class="subtitle is-5">{% if profile.profile_info %}
             {{ profile.profile_info }} {% endif %}</p>
         {% if user.is_authenticated and user == profile.user %}
-            <button class="button">Edit Profile</button>
+            <a href="{% url 'edit-profile' %}" class="button">Edit Profile</a>
         {% endif %}
 
     </div>
