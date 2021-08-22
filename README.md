@@ -4,7 +4,7 @@
 
 Work in progress personal project. Currently enabled to:
 
-- Allow for new user creation.
+- Allow for new user creation. Edit profile details, including profile photo.
 
 - Login and Logout for users from Navabr (under "Settings")
 
@@ -20,7 +20,7 @@ Work in progress personal project. Currently enabled to:
 
 **Additonal Functionality to come:**
 
-- Enabling more profile-based information such as editing details of user + profile photo and comments on posts.
+- Enabling more profile-based information such as comments on posts.
 
 - Direct Messaging and Notifications.
 
@@ -31,3 +31,5 @@ Work in progress personal project. Currently enabled to:
 ## Bugs/TODO:
 
 29.07.21 - User profile creation will create a profile, but redirect fails specifying path "post/user/login". Not immediate concern, but to be fixed.
+
+22.08.2021 - User profile photo displays at incorrect scale when a larger photo is used. Not immediate, but possibly revise format profile phots are saved in to a certain size to prevent in future - Bulma only allows for rescaling from photos up to 4x from stated size in html.
