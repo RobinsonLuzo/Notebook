@@ -19,9 +19,9 @@
             <div class="media-left">
               <figure class="image is-48x48">
                 {% if post.user.profile.picture %}
-                  <img src="{{ post.user.profile.picture.url }}" alt="Placeholder image">
+                  <img class="is-rounded" src="{{ post.user.profile.picture.url }}" alt="Placeholder image">
                 {% else %}
-                  <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                  <img class="is-rounded" src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
                 {% endif %}
               </figure>
             </div>
@@ -70,48 +70,69 @@
       </div>
 
       <div class="card-content">
+        <!--Iterate through comments for this post-->
+        {% for comment in comments %}
+          <article class="media">
+            <figure class="media-left">
+              <p class="image is-64x64">
+                {% if comment.user.profile.picture %}
+                  <img class="is-rounded" src="{{ comment.user.profile.picture.url }}" alt="Placeholder image">
+                {% else %}
+                  <img class="is-rounded" src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                {% endif %}
+              </p>
+            </figure>
+
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  {% if comment.user.profile.first_name %}
+                    <strong>{{ comment.user.profile.first_name }}{{ comment.user.profile.last_name }}</strong>
+                  {% else %}
+                    <strong>Anonymous</strong>
+                  {% endif %}
+
+                  <br>
+                    {{ comment.body }}
+                  <br>
+                  <small>{{ comment.date }}</small>
+                </p>
+              </div>              
+            </div>
+          </article>
+        {% endfor %}
+
+
+
+      
       <article class="media">
         <figure class="media-left">
           <p class="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/128x128.png">
+            {% if request.user.profile.picture %}
+              <img class="is-rounded" src="{{ request.user.profile.picture.url }}" alt="Placeholder image">
+            {% else %}
+              <img class="is-rounded" src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+            {% endif %}
           </p>
         </figure>
         <div class="media-content">
-          <div class="content">
-            <p>
-              <strong>Barbara Middleton</strong>
-              <br>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
-              <br>
-              <small>Date: 3 hrs</small>
-            </p>
-          </div>
-      
-          
-        </div>
-      </article>
-      
-      <article class="media">
-        <figure class="media-left">
-          <p class="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/128x128.png">
-          </p>
-        </figure>
-        <div class="media-content">
-          <div class="field">
-            <p class="control">
-              <textarea class="textarea" placeholder="Add a comment..."></textarea>
-            </p>
-          </div>
-          <div class="field">
-            <p class="control">
-              <button class="button">Post comment</button>
-            </p>
-          </div>
+          <form method="post" action="" role="form">
+            {% csrf_token %}
+              <div class="field">
+                <p class="control">
+                  {{ form.body }}
+                </p>
+              </div>
+              <div class="field">
+                <p class="control">
+                  <button type="submit" name="action" class="button">Post comment</button>
+                </p>
+              </div>
+          </form>
         </div>
       </article>
   
-
+    </div>
   </div>
 </div>
 
