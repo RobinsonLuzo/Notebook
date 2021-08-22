@@ -80,6 +80,8 @@ def PostDetails(request, post_id):
     context = {
         'post': post,
         'favorited': favorited, 
+        'form': form,
+        'comments': comments,
     }
 
     return HttpResponse(template.render(context, request))
