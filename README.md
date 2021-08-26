@@ -18,9 +18,11 @@ Work in progress personal project. Currently enabled to:
 
 - See all photos associate with a given hashtag.
 
-**Additonal Functionality to come:**
+- Commenting on other users posts is now available!
 
-- Enabling more profile-based information such as comments on posts.
+<img src="https://raw.githubusercontent.com/RobinsonLuzo/Notebook/master/img/comment_screenshot.JPG" alt="Comment Screenshot" width="850"/>
+
+**Additonal Functionality to come:**
 
 - Direct Messaging and Notifications.
 
