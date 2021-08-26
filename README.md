@@ -12,13 +12,11 @@ Work in progress personal project. Currently enabled to:
 
 - Follow/Unfollow other users. 
 
-- Like and saving/favoriting other users photos.
-
 - Post new photos.
 
 - See all photos associate with a given hashtag.
 
-- Commenting on other users posts is now available!
+- Liking, Favoriting and Commenting on other users posts is now available!
 
 <img src="https://raw.githubusercontent.com/RobinsonLuzo/Notebook/master/img/comment_screenshot.JPG" alt="Comment Screenshot" width="850"/>
 
