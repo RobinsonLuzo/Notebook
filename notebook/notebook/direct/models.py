@@ -51,7 +51,7 @@ class Message(models.Model):
         Return all messages for a given user.
         """
         # retrieve all messages for logged in user, ordering by time sent.
-        messages = Message.objects.filter(user=user).values('recipient').annotate(Last=Max('date')).order_by('-last')
+        messages = Message.objects.filter(user=user).values('recipient').annotate(last=Max('date')).order_by('-last')
 
         # load all users who have sent messages.
         users = []
