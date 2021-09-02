@@ -16,7 +16,7 @@
 
         {% for message in messages %}
 
-          <a class="{% if active_direct == message.user.username %}is-active{% endif %}" href="">
+          <a class="{% if active_direct == message.user.username %}is-active{% endif %}" href="{% url 'directs' message.user.username %}">
             <div class="box">
               <article class="media">
                 <div class="media-left">
