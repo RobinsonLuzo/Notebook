@@ -5,5 +5,5 @@ from .views import inbox, Directs
 
 urlpatterns = [
     path('', inbox, name='inbox'),
-    path('direct/<username>', Directs, name='directs'),
+    path('directs/<username>', Directs, name='directs'),
 ]
