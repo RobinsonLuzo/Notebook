@@ -38,3 +38,31 @@ def inbox(request):
     template = loader.get_template('direct/direct.html')
 
     return HttpResponse(template.render(context, request))
+
+
+@login_required
+def Directs(request, username):
+    """
+    Return all messages/directs for a given username. Sent to the actively logged in user.
+    """
+    user = request.user
+    messages = Message.get_messages(user=user)
+    active_direct = username
+
+    # now filter and get all directs for that username and the actively logged in user.
+    directs = Message.objects.filter(user=user, recipient__username=username)
+    directs.update(is_read=True)
+
+    for message in messages:
+        if message['user'].username == username:
+            message['unread'] = 0
+
+    context = {
+        'directs': directs,
+        'messages': messages,
+        'active_direct': active_direct,
+    }
+
+    template = loader.get_template('direct/direct.html')
+
+    return HttpResponse(template.render(context, request))
