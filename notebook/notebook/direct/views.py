@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.contrib.auth.models import User
+from django.http import HttpResponse, HttpResponseBadRequest
+from django.shortcuts import render, redirect
 from django.template import loader
 
 # local imports
@@ -66,3 +67,21 @@ def Directs(request, username):
     template = loader.get_template('direct/direct.html')
 
     return HttpResponse(template.render(context, request))
+
+
+@login_required
+def SendDirect(request):
+    """
+    Takes input from textbox in inbox and creates a message object from it. Text only for now.
+    """
+    from_user = request.user
+    to_user_username = request.POST.get('to_user')
+    body = request.POST.get('body')
+
+    if request.method == 'POST':
+        to_user = User.objects.get(username=to_user_username)
+        Message.send_message(from_user, to_user, body)
+        return redirect('inbox')
+
+    else:
+        HttpResponseBadRequest()
