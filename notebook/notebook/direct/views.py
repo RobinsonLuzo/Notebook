@@ -30,11 +30,12 @@ def inbox(request):
             if message['user'].username == active_direct:
                 message['unread'] = 0
 
-        context = {
-            'directs': directs,
-            'messages': messages,
-            'active_direct': active_direct,
-        }
+    # Note: keep out of if statement, otherwise returns error if messages box is empty.
+    context = {
+        'directs': directs,
+        'messages': messages,
+        'active_direct': active_direct,
+    }
 
     template = loader.get_template('direct/direct.html')
 

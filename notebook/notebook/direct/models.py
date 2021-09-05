@@ -39,8 +39,8 @@ class Message(models.Model):
 
         recipient_message = Message(user=to_user,
                                     sender=from_user,
-                                    recipient=from_user,
-                                    body=body
+                                    body=body,
+                                    recipient=from_user
                                     )
         recipient_message.save()
 
@@ -50,11 +50,12 @@ class Message(models.Model):
         """
         Return all messages for a given user.
         """
+        users = []
+
         # retrieve all messages for logged in user, ordering by time sent.
         messages = Message.objects.filter(user=user).values('recipient').annotate(last=Max('date')).order_by('-last')
 
         # load all users who have sent messages.
-        users = []
         for message in messages:
             # unread is set to false as we are looking for unseen messages:
             users.append({
