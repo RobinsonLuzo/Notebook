@@ -82,6 +82,8 @@
     </div>
 
     <!--Send your own direct section-->
+    <form role="form" method="POST" action="{% url 'send_direct' %}">
+      {% csrf_token %}
     <article class="media">
       <figure class="media-left">
         <p class="image is-64x64">
@@ -89,21 +91,22 @@
         </p>
       </figure>
       <div class="media-content">
-        <input type="hidden" name="to_user">
-          <div class="field">
-            <p class="control">
-              <textarea class="textarea" name="body" placeholder="Add a comment..."></textarea>
-            </p>
-          </div>
-          <nav class="level">
-            <div class="level-left">
-              <div class="level-item">
-                <a class="button is-info">Submit</a>
-              </div>
+        <input type="hidden" name="to_user" value="{{ active_direct }}">
+        <div class="field">
+          <p class="control">
+            <textarea class="textarea" name="body" placeholder="Add a comment..."></textarea>
+          </p>
+        </div>
+        <nav class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <button type="submit" name="action" class="button is-info">Send</buttom>
             </div>
-          </nav>
+          </div>
+        </nav>
       </div>
     </article>
+    </form>
 
   </div>
 
