@@ -35,7 +35,7 @@
                       {% if message.user.profile.first_name %}
                         <strong>{{ message.user.profile.first_name }} {{ message.user.profile.last_name }}</strong> <small>@{{ message.user.username }}</small>
                       {% else %}
-                        <strong>Anonymous</strong> <small>@{{ message.user.username }}</small>
+                        <strong>Unknown</strong> <small>@{{ message.user.username }}</small>
                       {% endif %}
                     </p>
                   </div>

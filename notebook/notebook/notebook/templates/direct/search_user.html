@@ -46,7 +46,14 @@
             <div class="media-content">
                 <div class="content">
                 <p>
-                    <strong>{{ user.profile.first_name }} {{ user.profile.last_name }}</strong> 
+                    {% if user.profile.first_name %}
+                      <a href="{% url 'profile' user %}">
+                        <strong>{{ user.profile.first_name }} {{ user.profile.last_name }}</strong> </a>
+                    {% else %}
+                      <a href="{% url 'profile' user %}">
+                        <strong>Unknown</strong> 
+                      </a>
+                    {% endif %}
                     <small>@{{ user.username }}</small>
                     <br>
                 </p>
