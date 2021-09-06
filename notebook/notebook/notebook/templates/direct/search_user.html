@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="columns is-mobile">
+    <div class="column is-offset-one-quarter">
+
+        <div class="field has-addons">
+            <form>
+                <div class="control">
+                    <input class="input" type="text" placeholder="Find a repository">
+                </div>
+                <div class="control">
+                    <a class="button is-info">
+                        Search
+                    </a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
