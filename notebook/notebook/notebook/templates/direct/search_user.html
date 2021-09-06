@@ -5,22 +5,59 @@
 {% block content %}
 
 <div class="columns is-mobile">
-    <div class="column is-offset-one-quarter">
+    <div class="column is-offset-one-fifth">
 
         <div class="field has-addons">
             <form>
                 <div class="control">
-                    <input class="input" type="text" placeholder="Find a repository">
+                    <input class="input is-large" name="q" type="text" placeholder="Search users..." value="{{ request.GET.q }}">
                 </div>
                 <div class="control">
-                    <a class="button is-info">
+                    <button type="submit" class="button is-success">
                         Search
-                    </a>
+                    </button>
                 </div>
             </form>
         </div>
 
     </div>
 </div>
+
+<!--Result of search-->
+<div class="column is-one-quarter">
+
+    {% for user in users %}
+        <div class="box">
+            <article class="media">
+            <div class="media-left">
+                <figure class="image is-64x64">
+                    {% if user.profile.picture %}
+                    <!--href here used to access posters profile-->
+                      <a href="{% url 'profile' user %}">
+                        <img class="is-rounded" src="{{ user.profile.picture.url }}" alt="Placeholder image">
+                      </a>
+                    {% else %}
+                      <a href="{% url 'profile' user %}">
+                        <img class="is-rounded" src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                      </a>
+                    {% endif %}
+                </figure>
+            </div>
+            <div class="media-content">
+                <div class="content">
+                <p>
+                    <strong>{{ user.profile.first_name }} {{ user.profile.last_name }}</strong> 
+                    <small>@{{ user.username }}</small>
+                    <br>
+                </p>
+                <a href="" class="button is-info">Send Message</a>
+                </div>
+            </div>
+            </article>
+        </div>
+    {% endfor %}
+
+</div>
+
 
 {% endblock %}
