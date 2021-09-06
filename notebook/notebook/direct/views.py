@@ -111,3 +111,19 @@ def SearchUser(request):
     template = loader.get_template('direct/search_user.html')
 
     return HttpResponse(template.render(context, request))
+
+
+@login_required
+def NewConversation(request, username):
+    """Create a new Message to a previously unconnected user."""
+    from_user = request.user
+    body = "Says Hi!"
+
+    try:
+        to_user = User.objects.get(username=username)
+    except Exception as e:
+        return redirect('usersearch')
+
+    Message.send_message(from_user, to_user, body)
+
+    return redirect('inbox')
