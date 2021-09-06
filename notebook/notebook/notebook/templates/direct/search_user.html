@@ -57,7 +57,7 @@
                     <small>@{{ user.username }}</small>
                     <br>
                 </p>
-                <a href="" class="button is-info">Send Message</a>
+                <a href="{% url 'newconversation' user.username %}" class="button is-info">Send Message</a>
                 </div>
             </div>
             </article>
