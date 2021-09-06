@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.template import loader
@@ -86,3 +88,26 @@ def SendDirect(request):
 
     else:
         HttpResponseBadRequest()
+
+
+@login_required
+def SearchUser(request):
+    """Handles a search request for other users usernames - handled from direct page."""
+    query = request.GET.get('q')
+    context = {}
+
+    if query:
+        # Q is complex lookup. See: https://docs.djangoproject.com/en/3.2/topics/db/queries/#complex-lookups-with-q-objects
+        users = User.objects.filter(Q(username__icontains=query))
+
+        paginator = Paginator(users, 6)
+        page_number = request.GET.get('page')
+        users_paginator = paginator.get_page(page_number)
+
+        context = {
+            'users': users_paginator,
+        }
+
+    template = loader.get_template('direct/search_user.html')
+
+    return HttpResponse(template.render(context, request))
