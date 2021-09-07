@@ -73,7 +73,7 @@ def Directs(request, username):
 
 
 @login_required
-def SendDirect(request):
+def send_direct(request):
     """
     Takes input from textbox in inbox and creates a message object from it. Text only for now.
     """
@@ -91,7 +91,7 @@ def SendDirect(request):
 
 
 @login_required
-def SearchUser(request):
+def search_user(request):
     """Handles a search request for other users usernames - handled from direct page."""
     query = request.GET.get('q')
     context = {}
@@ -114,7 +114,7 @@ def SearchUser(request):
 
 
 @login_required
-def NewConversation(request, username):
+def new_conversation(request, username):
     """Create a new Message to a previously unconnected user."""
     from_user = request.user
     body = "Says Hi!"
@@ -127,3 +127,12 @@ def NewConversation(request, username):
     Message.send_message(from_user, to_user, body)
 
     return redirect('inbox')
+
+
+def check_directs(request):
+    """Returns count of number of unread directs."""
+    directs_count = 0
+    if request.user.is_authenticated:
+	    directs_count = Message.objects.filter(user=request.user, is_read=False).count()
+
+    return {'directs_count':directs_count}

@@ -46,7 +46,9 @@
                     <a class="navbar-item">
                         <i class="material-icons">inbox</i>
                         Inbox
-                        <span class="badge">2</span>
+                        {% if directs_count %}
+                            <span class="badge">{{ directs_count }}</span>
+                        {% endif %}
                     </a>
 
                     <a href="{% url 'profile' request.user %}" class="navbar-item">
