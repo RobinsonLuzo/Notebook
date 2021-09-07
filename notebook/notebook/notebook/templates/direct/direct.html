@@ -30,6 +30,7 @@
                 </div>
                 
                 <div class="media-content">
+
                   <div class="content">
                     <p>
                       {% if message.user.profile.first_name %}
@@ -39,6 +40,15 @@
                       {% endif %}
                     </p>
                   </div>
+
+                  <div class="content media-right">
+                    {% if message.unread %}
+                      <p style="font-weight: bold; color: red;">
+                        <i class="material-icons">mark_chat_unread</i>
+                      </p>
+                    {% endif %}
+                  </div>
+
                 </div>
               </article>
             </div>
