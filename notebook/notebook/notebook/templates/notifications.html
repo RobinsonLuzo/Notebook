@@ -1,176 +1,103 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Hello Bulma!</title>
-        <link rel="stylesheet" href="css/bulma.min.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">
-    </head>
+{% extends 'base.html' %}
 
-    <body>
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-                <a class="navbar-item" href="https://bulma.io">
-                    <img src="img/instagram_black.png" width="64" height="64">
-                </a>
-            
-                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
-            </div>
-          
-            <div id="navbarBasicExample" class="navbar-menu">
-                <div class="navbar-start">
-                    <a class="navbar-item">
-                        <i class="material-icons">home</i>
-                        Home
-                    </a>
-            
-                    <a class="navbar-item">
-                        <i class="material-icons">explore</i>
-                        Explore
-                    </a>
+{% load static %}
 
-                    <a class="navbar-item">
-                        <i class="material-icons">notifications</i>
-                        Notifications
-                    </a>
+{% block content %}
+<div class="columns is-mobile is-centered">
+    <div class="column is-half">
 
-                    <a class="navbar-item">
-                        <i class="material-icons">inbox</i>
-                        Inbox
-                    </a>
+        <!------COMMENT only------>
+        <!--<div class="notification">
+            <button class="delete"></button>
+            <article class="media">
+                <figure class="media-left">
+                    <p class="image is-64x64">
+                    <img src="https://bulma.io/images/placeholders/128x128.png">
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                    <strong>John Smith</strong> <small>@johnsmith</small> 
+                    <br>
+                    Commented:
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                        Proin ornare magna eros, eu pellentesque tortor vestibulum ut. 
+                        Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
+                    </p>
+                    <strong><small>1 day, 3 hours ago</small></strong>
+                    </div>
+                </div>-->
 
-                    <a class="navbar-item">
-                        <i class="material-icons">face</i>
-                        Profile
-                    </a>
-            
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link">
-                            Settings
-                        </a>
-              
-                        <div class="navbar-dropdown">
-                            <a class="navbar-item">
-                                Change password
-                            </a>
-                            <a class="navbar-item">
-                                Contact
-                            </a>
-                            <a class="navbar-item">
-                                Report an issue
-                            </a>
-                            <hr class="navbar-divider">
-                            <a class="navbar-item">
-                                Log out
-                            </a>
+                <!--Picture being commented on-->
+                <!--<div class="media-right">
+                    <figure class="image is-128x128">
+                        <img src="https://bulma.io/images/placeholders/128x128.png">
+                    </figure>
+                </div>
+            </article>
+        </div>-->
+        <!------COMMENT only------>
+
+
+        <!------FOLLOW only------>
+        <!--<div class="notification">
+            <button class="delete"></button>
+            <article class="media">
+                <figure class="media-left">
+                    <p class="image is-64x64">
+                    <img src="https://bulma.io/images/placeholders/128x128.png">
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                    <strong>John Smith</strong> <small>@johnsmith</small> 
+                    <br>
+                    <p><i class="material-icons">person_add</i> Followed you!</p>
+                    <strong><small>1 day, 3 hours ago</small></strong>
+                    </div>
+                </div>
+            </article>
+        </div>-->
+        <!------FOLLOW only------>
+
+
+        <!------LIKE only------>
+        {% for notification in notifications %}
+            <div class="notification">
+                <button class="delete"></button>
+                <article class="media">
+                    <figure class="media-left">
+                        <p class="image is-64x64">
+                            {% if notification.sender.profile.picture %}
+                                <img class="is-rounded" src="{{ notification.sender.profile.picture.url }}" alt="Placeholder image">
+                            {% else %}
+                                <img class="is-rounded" src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                            {% endif %}
+                        </p>
+                    </figure>
+                    <div class="media-content">
+                        <div class="content">
+                        <strong>{{ notification.sender.profile.first_name }} {{ notification.sender.profile.last_name }}</strong> 
+                        <small>@{{ notification.sender.username }}</small> 
+                        <br>
+                        <p><i class="material-icons">thumb_up</i> Liked your post!</p>
+                        <strong><small>{{ notification.date }}</small></strong>
                         </div>
                     </div>
-                </div>
-          
+
+                    <!--Picture being commented on-->
+                    <div class="media-right">
+                        <figure class="image is-128x128">
+                            <img src="{{ notification.post.picture.url }}">
+                        </figure>
+                    </div>
+                </article>
             </div>
-        </nav>
-
-    <section class="section">
-        <div class="container">
-            <div class="columns is-mobile is-centered">
-                <div class="column is-half">
-
-                    <!------COMMENT only------>
-                    <div class="notification">
-                        <button class="delete"></button>
-                        <article class="media">
-                            <figure class="media-left">
-                              <p class="image is-64x64">
-                                <img src="https://bulma.io/images/placeholders/128x128.png">
-                              </p>
-                            </figure>
-                            <div class="media-content">
-                              <div class="content">
-                                <strong>John Smith</strong> <small>@johnsmith</small> 
-                                <br>
-                                Commented:
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                    Proin ornare magna eros, eu pellentesque tortor vestibulum ut. 
-                                    Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-                                </p>
-                                <strong><small>1 day, 3 hours ago</small></strong>
-                              </div>
-                            </div>
-
-                            <!--Picture being commented on-->
-                            <div class="media-right">
-                                <figure class="image is-128x128">
-                                    <img src="https://bulma.io/images/placeholders/128x128.png">
-                                </figure>
-                            </div>
-                        </article>
-                    </div>
-                    <!------COMMENT only------>
+        {% endfor %}
+        <!------LIKE only------>
 
 
-                    <!------FOLLOW only------>
-                    <div class="notification">
-                        <button class="delete"></button>
-                        <article class="media">
-                            <figure class="media-left">
-                              <p class="image is-64x64">
-                                <img src="https://bulma.io/images/placeholders/128x128.png">
-                              </p>
-                            </figure>
-                            <div class="media-content">
-                              <div class="content">
-                                <strong>John Smith</strong> <small>@johnsmith</small> 
-                                <br>
-                                <p><i class="material-icons">person_add</i> Followed you!</p>
-                                <strong><small>1 day, 3 hours ago</small></strong>
-                              </div>
-                            </div>
-                        </article>
-                    </div>
-                    <!------FOLLOW only------>
-
-
-                    <!------LIKE only------>
-                    <div class="notification">
-                        <button class="delete"></button>
-                        <article class="media">
-                            <figure class="media-left">
-                              <p class="image is-64x64">
-                                <img src="https://bulma.io/images/placeholders/128x128.png">
-                              </p>
-                            </figure>
-                            <div class="media-content">
-                              <div class="content">
-                                <strong>John Smith</strong> <small>@johnsmith</small> 
-                                <br>
-                                <p><i class="material-icons">thumb_up</i> Liked your post!</p>
-                                <strong><small>1 day, 3 hours ago</small></strong>
-                              </div>
-                            </div>
-
-                            <!--Picture being commented on-->
-                            <div class="media-right">
-                                <figure class="image is-128x128">
-                                    <img src="https://bulma.io/images/placeholders/128x128.png">
-                                </figure>
-                            </div>
-                        </article>
-                    </div>
-                    <!------LIKE only------>
-
-
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    </body>
-</html>
+    </div>
+</div>
+{% endblock %}
