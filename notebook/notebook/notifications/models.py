@@ -22,8 +22,8 @@ class Notification(models.Model):
     # Like, subscribe, share and don't forget to ring that notification bell for more
     NOTIFICATION_TYPES = ((1, 'Like'), (2, 'Comment'), (3, 'Follow'))
 
-    # Note: this equates to post.models Post
-    # naughty post....
+    # Note: this equates to post.models Post - removes circular reference when imported to post app later.
+    # naughty post?
     post = models.ForeignKey('post.Post', on_delete=models.CASCADE, related_name='noti_post', blank=True, null=True)
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='noti_from_user')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='noti_to_user')
