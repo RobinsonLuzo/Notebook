@@ -2,9 +2,12 @@ import uuid
 
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.urls import reverse
 from django.utils.text import slugify
+
+# relative imports:
+from notifications.models import Notification
 
 # Create your models here.
 def user_directory_path(instance, filename):
@@ -119,8 +122,31 @@ class Likes(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_like')
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_likes')
 
+    def user_liked_post(sender, instance, *args, **kwargs):
+        """Creates a notification instance on liking a post."""
+        like = instance
+        post = like.post
+        sender = like.user
+        notify = Notification(post=post, sender=sender, user=post.user, notification_type=1)
+        notify.save()
+
+    def user_unliked_post(sender, instance, *args, **kwargs):
+        """Removes a notification instance on unliking a post."""
+        like = instance
+        post = like.post
+        sender = like.user
+
+        notify = Notification.objects.filter(post=post, sender=sender, notification_type=1)
+        notify.delete()
+
 
 
 # Notify recievers by sending a flag: https://docs.djangoproject.com/en/3.2/topics/signals/
 # Happens every time a user makes a post:
 post_save.connect(Stream.add_post, sender=Post)
+
+# Likes notifications:
+post_save.connect(Likes.user_liked_post, sender=Likes)
+
+# Unlike notification removal:
+post_delete.connect(Likes.user_unliked_post, sender=Likes)
