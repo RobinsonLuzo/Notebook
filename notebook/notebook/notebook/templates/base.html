@@ -29,32 +29,33 @@
             <div id="navbarBasicExample" class="navbar-menu">
                 <div class="navbar-start">
                     <a href="{% url 'index' %}" class="navbar-item">
-                        <span class="material-icons">home</span>
+                        <i class="material-icons">home</i>
                         Home
                     </a>
             
                     <a class="navbar-item">
-                        <span class="material-icons">explore</span>
+                        <i class="material-icons">explore</i>
                         Explore
                     </a>
 
                     <a class="navbar-item">
-                        <span class="material-icons">notifications</span>
+                        <i class="material-icons">notifications</i>
                         Notifications
                     </a>
 
                     <a class="navbar-item">
-                        <span class="material-icons">inbox</span>
+                        <i class="material-icons">inbox</i>
                         Inbox
+                        <span class="badge">2</span>
                     </a>
 
                     <a href="{% url 'profile' request.user %}" class="navbar-item">
-                        <span class="material-icons">face</span>
+                        <i class="material-icons">face</i>
                         Profile - <strong>{{ request.user }}</strong>
                     </a>
 
                     <a href="{% url 'newpost' %}" class="navbar-item">
-                        <span style="color: green;" class="material-icons">perm_media</span>
+                        <i style="color: green;" class="material-icons">perm_media</i>
                         <strong>New Post</strong>
                     </a>
             
