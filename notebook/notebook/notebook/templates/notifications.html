@@ -89,7 +89,9 @@
                     <!--Picture being commented on-->
                     <div class="media-right">
                         <figure class="image is-128x128">
-                            <img src="{{ notification.post.picture.url }}">
+                            <a href="{{ notification.post.get_absolute_url }}">
+                                <img src="{{ notification.post.picture.url }}">
+                            </a>
                         </figure>
                     </div>
                 </article>
