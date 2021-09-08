@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load humanize %}
 
 {% block content %}
 
@@ -111,7 +112,7 @@
                   <br>
                     {{ comment.body }}
                   <br>
-                  <strong><small>{{ comment.date }}</small></strong>
+                  <strong><small>{{ comment.date|naturaltime }}</small></strong>
                 </p>
               </div>              
             </div>
