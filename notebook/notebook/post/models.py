@@ -163,10 +163,10 @@ class Likes(models.Model):
 # Happens every time a user makes a post:
 post_save.connect(Stream.add_post, sender=Post)
 
+
 # Like-based notifications:
 post_save.connect(Likes.user_liked_post, sender=Likes)
 post_delete.connect(Likes.user_unliked_post, sender=Likes)
-
 
 # Follow-based notifications:
 post_save.connect(Follow.user_follow, sender=Follow)
