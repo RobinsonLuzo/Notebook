@@ -20,9 +20,15 @@ Work in progress personal project. Currently enabled to:
 
 <img src="https://raw.githubusercontent.com/RobinsonLuzo/Notebook/master/img/comment_screenshot.JPG" alt="Comment Screenshot" width="850"/>
 
-**Additonal Functionality to come:**
+- Direct Messaging. You can now message other profiles. Searching for profiles to messages is possible too - through the "New Message" button.
 
-- Direct Messaging and Notifications.
+- Notifications. You now get notifications when another user has liked or commented on a post you made, followed you or messaged you.
+
+<img src="https://raw.githubusercontent.com/RobinsonLuzo/Notebook/master/img/notifications_screenshot.JPG" alt="DM Screenshot" width="850"/>
+
+
+
+**Additonal Functionality to come:**
 
 - Video and Stories *a-la* Instagram will likely follow after these, but will require mre library imports.
 
