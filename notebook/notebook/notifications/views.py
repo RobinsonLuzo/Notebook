@@ -33,7 +33,7 @@ def count_notifications(request):
     """
     user = request.user
     count_notifications = 0
-    if user.is_authenticated():
+    if user.is_authenticated:
         count_notifications = Notification.objects.filter(user=user, is_seen=False).count()
 
     return {'count_notifications': count_notifications}

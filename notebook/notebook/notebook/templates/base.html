@@ -41,6 +41,9 @@
                     <a class="navbar-item">
                         <i class="material-icons">notifications</i>
                         Notifications
+                        {% if count_notifications %}
+                            <span class="badge">{{ count_notifications }}</span>
+                        {% endif %}
                     </a>
 
                     <a class="navbar-item">
