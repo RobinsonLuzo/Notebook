@@ -12,7 +12,7 @@
             <!------COMMENT only------>
             {% if notification.notification_type == 2 %}
                 <div class="notification">
-                    <button class="delete"></button>
+                    <a href="{% url 'delete_notification' notification.id %}" class="delete"></a>
                     <article class="media">
                         <figure class="media-left">
                             <p class="image is-64x64">
@@ -55,7 +55,7 @@
             <!------FOLLOW only------>
             {% if notification.notification_type == 3 %}
                 <div class="notification">
-                    <button class="delete"></button>
+                    <a href="{% url 'delete_notification' notification.id %}" class="delete"></a>
                     <article class="media">
                         <figure class="media-left">
                             <p class="image is-64x64">
@@ -87,7 +87,7 @@
             <!------LIKE only------>
             {% if notification.notification_type == 1 %}
                 <div class="notification">
-                    <button class="delete"></button>
+                    <a href="{% url 'delete_notification' notification.id %}" class="delete"></a>
                     <article class="media">
                         <figure class="media-left">
                             <p class="image is-64x64">
