@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template import loader
 
 # local import:
@@ -19,3 +19,11 @@ def show_notifications(request):
     }
 
     return HttpResponse(template.render(context, request))
+
+
+def delete_notification(request, noti_id):
+    """Delete a notification instance."""
+    user = request.user
+    Notification.objects.filter(id=noti_id, user=user).delete()
+    return redirect('show_notifications')
+
