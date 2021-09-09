@@ -30,12 +30,14 @@ Work in progress personal project. Currently enabled to:
 
 **Additonal Functionality to come:**
 
-- Video and Stories *a-la* Instagram will likely follow after these, but will require mre library imports.
+- Video and Stories *a-la* Instagram will soon follow!
 
-**Note:** Actions involving posting photos etc require a user to be logged in to work correctly. Log in first or create a new profile if starting the app for the first time. This can be done at: "user/login" and selecting the option to Create a new profile.
+**Note:** Actions involving posting photos etc require a user to be logged in to work correctly. Log in first or create a new profile if starting the app for the first time. This can be done at: "user/login" when clicking the port the page is created at and selecting the option to "Create a new profile".
 
 ## Bugs/TODO:
 
 29.07.21 - User profile creation will create a profile, but redirect fails specifying path "post/user/login". Not immediate concern, but to be fixed.
 
 22.08.2021 - User profile photo displays at incorrect scale when a larger photo is used. Not immediate, but possibly revise format profile phots are saved in to a certain size to prevent in future - Bulma only allows for rescaling from photos up to 4x from stated size in html.
+
+09.09.2021 - Change screen on opening to login prompt. Create method for explore section of navbar to uncover new photos/profiles.
