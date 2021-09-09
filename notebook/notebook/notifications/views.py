@@ -12,6 +12,9 @@ def show_notifications(request):
     user = request.user
     notifications = Notification.objects.filter(user=user).order_by('-date')
 
+    # change loaded notifications to 'seen'
+    Notification.objects.filter(user=user, is_seen=False).update(is_seen=True)
+
     template = loader.get_template('notifications.html')
 
     context = {
