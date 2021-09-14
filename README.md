@@ -32,8 +32,13 @@ Work in progress personal project. Currently enabled to:
 
 - Video and Stories *a-la* Instagram will soon follow!
 
-**Note:** Actions involving posting photos etc require a user to be logged in to work correctly. Log in first or create a new profile if starting the app for the first time. This can be done at: "user/login" when clicking the port the page is created at and selecting the option to "Create a new profile".
+**Note:** Actions involving posting photos etc require a user to be logged in to work correctly. Log in first or create a new profile if starting the app for the first time. This can be done at the page opened when clicking the port the project is created at and selecting the option to "Create a new profile". Alternatively you can manually enter "user/login" after the port id and login/create a profile from there.
+
+Example logins already existant:
+
+User:           Password:
+RobinsonLuzo    MLEngineer
+TrainThings     VSBoyne1948
 
 ## Bugs/TODO:
 
-09.09.2021 - Change screen on opening to login prompt. Create method for explore section of navbar to uncover new photos/profiles.
